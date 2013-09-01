@@ -15,29 +15,16 @@ public class AnimationGenerator {
     private ImageOutputStream output;
     private int delay = 200;
 
-    /**
-     * @param images to be used in GIF sequence
-     * @return this instance of AnimationGenerator
-     */
     public AnimationGenerator createAnimatedGIF(BufferedImage... images) {
         imageArray = images;
         return this;
     }
 
-    /**
-     * @param seconds of pause between frames
-     * @return this instance of AnimationGenerator
-     */
     public AnimationGenerator withDelay(int seconds) {
         this.delay = seconds * 1000;
         return this;
     }
 
-    /**
-     * @param stream to save output to
-     * @return this instance of AnimationGenerator
-     * @throws IOException
-     */
     public AnimationGenerator toStream(OutputStream stream) throws IOException {
         output = new MemoryCacheImageOutputStream(stream);
         gifWriter = getGifWriter(output);
@@ -45,11 +32,6 @@ public class AnimationGenerator {
         return this;
     }
 
-    /**
-     * Builds GIF sequence to specified stream
-     *
-     * @throws IOException
-     */
     public void build() throws IOException {
         for (BufferedImage image : imageArray) {
             gifWriter.writeToSequence(image);
