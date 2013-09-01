@@ -29,7 +29,7 @@ public class AnimationGenerator {
      * @return this instance of AnimationGenerator
      */
     public AnimationGenerator withDelay(int seconds) {
-        this.delay = seconds * 100;
+        this.delay = seconds * 1000;
         return this;
     }
 
