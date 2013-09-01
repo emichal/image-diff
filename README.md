@@ -1,6 +1,6 @@
 ## ImageDiff
 
-Tool allowing to simply (_and strictly_) compare two images. It checks for size and pixel by pixel equality. If required, an animated GIF image can be created with the diff output (GIF is a sequence of actual, expected and generated image with differences).
+Tool allowing to simply (and strictly) compare two images. It checks for size and pixel by pixel equality. If required, an animated GIF image can be created with the diff output (GIF is a sequence of actual, expected and generated image with differences).
 
 ### Usage
 
@@ -27,3 +27,10 @@ import static com.emichal.imagediff.ImageDiff.image;
                 .isEqual());
     }
 ```
+
+
+### Sample output
+
+Output is produced from comparing two different screenshots of Google home page.
+
+![Sample output](https://raw.github.com/emichal/image-diff/master/src/main/resources/output.gif)
