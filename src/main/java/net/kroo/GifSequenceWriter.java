@@ -18,23 +18,19 @@ import java.awt.image.RenderedImage;
 import java.io.IOException;
 import java.util.Iterator;
 
-@SuppressWarnings("ALL")
 public class GifSequenceWriter {
-    protected ImageWriter gifWriter;
-    protected ImageWriteParam imageWriteParam;
-    protected IIOMetadata imageMetaData;
+    private ImageWriter gifWriter;
+    private ImageWriteParam imageWriteParam;
+    private IIOMetadata imageMetaData;
 
     /**
      * Creates a new GifSequenceWriter
      *
-     * @param outputStream     the ImageOutputStream to be written to
-     * @param type             one of the imageTypes specified in BufferedImage
-     * @param time             the time between frames in miliseconds
-     * @param loopContinuously wether the gif should loop repeatedly
+     * @param outputStream the ImageOutputStream to be written to
+     * @param time         the time between frames in miliseconds
      * @throws IIOException if no gif ImageWriters are found
      */
-    public GifSequenceWriter(ImageOutputStream outputStream, int type, int time, boolean loopContinuously)
-            throws IOException {
+    public GifSequenceWriter(ImageOutputStream outputStream, int time) throws IOException {
         // my method to create a writer
         gifWriter = getWriter();
         imageWriteParam = gifWriter.getDefaultWriteParam();
@@ -51,19 +47,12 @@ public class GifSequenceWriter {
         graphicsControlExtensionNode.setAttribute("delayTime", Integer.toString(time));
         graphicsControlExtensionNode.setAttribute("transparentColorIndex", "0");
 
-        IIOMetadataNode commentsNode = getNode(root, "CommentExtensions");
-        commentsNode.setAttribute("CommentExtension", "Created by MAH");
-
-        IIOMetadataNode appEntensionsNode = getNode(root, "ApplicationExtensions");
-
         IIOMetadataNode child = new IIOMetadataNode("ApplicationExtension");
         child.setAttribute("applicationID", "NETSCAPE");
         child.setAttribute("authenticationCode", "2.0");
+        child.setUserObject(new byte[]{0x1, (byte) (0), (byte) ((0 >> 8))});
 
-        int loop = loopContinuously ? 0 : 1;
-
-        child.setUserObject(new byte[]{0x1, (byte) (loop & 0xFF), (byte) ((loop >> 8) & 0xFF)});
-
+        IIOMetadataNode appEntensionsNode = getNode(root, "ApplicationExtensions");
         appEntensionsNode.appendChild(child);
 
         imageMetaData.setFromTree(metaFormatName, root);

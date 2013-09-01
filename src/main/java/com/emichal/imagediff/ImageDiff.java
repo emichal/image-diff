@@ -66,7 +66,7 @@ public class ImageDiff {
         for (Point point : getDiffPoints()) {
             Color actualPx = new Color(actualImage.getRGB(point.x, point.y));
             Color expectedPx = new Color(expectedImage.getRGB(point.x, point.y));
-            Color diffPx = getDiffPixel(actualPx, expectedPx);
+            Color diffPx = getDiffPx(actualPx, expectedPx);
 
             diff.setRGB(point.x, point.y, diffPx.getRGB());
         }
@@ -74,7 +74,7 @@ public class ImageDiff {
         return diff;
     }
 
-    private Color getDiffPixel(Color actual, Color expected) {
+    private Color getDiffPx(Color actual, Color expected) {
         return new Color(
                 (actual.getRed() + expected.getRed()) / 2,
                 (actual.getGreen() + expected.getGreen()) / 2,

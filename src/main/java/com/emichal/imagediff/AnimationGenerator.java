@@ -42,6 +42,6 @@ public class AnimationGenerator {
     }
 
     private GifSequenceWriter getGifWriter(ImageOutputStream output) throws IOException {
-        return new GifSequenceWriter(output, BufferedImage.TYPE_INT_ARGB, delay, true);
+        return new GifSequenceWriter(output, delay);
     }
 }
