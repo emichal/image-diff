@@ -4,10 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 import static com.emichal.imagediff.ImageDiff.image;
 import static org.fest.assertions.Assertions.assertThat;
@@ -16,11 +13,11 @@ import static org.fest.assertions.Assertions.assertThat;
 public class ImageDiffTest {
 
     private static InputStream image1() {
-        return ClassLoader.getSystemResourceAsStream("image1.jpg");
+        return ClassLoader.getSystemResourceAsStream("screenshot1.png");
     }
 
     private static InputStream image2() {
-        return ClassLoader.getSystemResourceAsStream("image2.jpg");
+        return ClassLoader.getSystemResourceAsStream("screenshot2.png");
     }
 
     private static File defaultDiffOutput() throws IOException {
@@ -70,7 +67,7 @@ public class ImageDiffTest {
     public void shouldNotConfirmEqualityWithinRegion() throws IOException {
         assertThat(image(image1())
                 .comparedTo(image2())
-                .withinRectangle(new Point(0, 0), new Point(46, 42))
+                .withinRectangle(new Point(0, 0), new Point(200, 400))
                 .isEqual()
         ).isFalse();
     }
